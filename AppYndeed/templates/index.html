@@ -1,10 +1,104 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World</title>
+  {% load static %}
+  <meta charset="UTF-8">
+  <title>Offres d'alternance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="{% static 'js/index.js' %}" defer></script>
 </head>
-<body>
-    <h1>Hello World depuis Django </h1>
+
+<body class="bg-gray-50 min-h-screen">
+
+<header class="relative w-full p-4 flex justify-center items-center mb-6">
+    <img 
+      class="absolute left-10" 
+      src="{% static 'img/deWided-Yndeed.png' %}" 
+      alt="Logo Yndeed"
+      width="400"
+      style="top: -2.5rem;"
+    >
+    
+    <h1 class="text-3xl font-bold">
+      Offres d'alternance
+    </h1>
+  </header>
+
+  <main class="flex flex-col items-center pb-10">
+    
+    <form method="get" class="flex gap-4 mb-6">
+      <input
+        type="text"
+        name="keywords"
+        placeholder="Ex: développeur python"
+        value="{{ keywords }}"
+        class="border rounded-lg px-4 py-2 w-72"
+      />
+      <input
+        type="text"
+        name="location"
+        placeholder="Lieu (ex: Montpellier)"
+        value="{{ location }}"
+        class="border rounded-lg px-4 py-2 w-64"
+      />
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+      >
+        Rechercher
+      </button>
+    </form>
+
+    <div class="w-11/12 md:w-4/5">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 px-4 text-left font-semibold">Titre</th>
+            <th class="py-3 px-4 text-left font-semibold">Entreprise</th>
+            <th class="py-3 px-4 text-left font-semibold">Lieu</th>
+            <th class="py-3 px-4 text-left font-semibold">Lien</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in page_obj %}
+          <tr class="border-t hover:bg-gray-50">
+            <td class="py-3 px-4">
+              {{ job.title }}
+            </td>
+            <td class="py-3 px-4">{{ job.company|default:"Inconnu" }}</td>
+            <td class="py-3 px-4">{{ job.location|default:"Non précisé" }}</td>
+            
+            <td class="py-3 px-4">
+              {% if job.job_url %}
+                <a href="{{ job.job_url }}" target="_blank" class="text-blue-600 hover:underline">
+                  Voir l'offre ↗
+                </a>
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="flex justify-center items-center gap-3 mt-6">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}&keywords={{ keywords }}&location={{ location }}"
+             class="px-3 py-2 border rounded-lg hover:bg-blue-100">
+            ← Précédent
+          </a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}&keywords={{ keywords }}&location={{ location }}"
+             class="px-3 py-2 border rounded-lg hover:bg-blue-100">
+            Suivant →
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  
+  </main> 
 </body>
 </html>
