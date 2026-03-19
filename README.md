@@ -3,7 +3,9 @@
 Application web Django permettant la recherche et l'agrégation d'offres d'emploi, déployée avec Docker Compose.
 
 ---
-
+Groupe:
+- Nassim MOSLEH
+- Corentin MARZIN
 
 ### Prérequis
 - Docker et Docker Compose installés
