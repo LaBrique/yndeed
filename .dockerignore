@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tests
+*.test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation
+*.md
+!requirements.txt
+
+# SQLite (on utilise PostgreSQL en prod)
+db.sqlite3
+*.sqlite3
+
+# Logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Docker (éviter la récursion)
+Dockerfile
+docker-compose*.yml
+
+# Nginx config (monté en volume)
+nginx/
